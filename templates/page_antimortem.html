@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<form method="POST" >
+    {% csrf_token %}
+
+		<div class="row">
+			
+		  	<div class="col-sm-12 col-md-6 col-lg-8 pull-right">
+		  		<h2>ANTE-MORTEM SEARCH</h2>
+			  	<p>Please choose Age group and Symptoms which are similar to your diseased animals.</p>
+		  		<!-- right side panel -->
+		  		<div class="panel panel-primary">
+				  	<div class="panel-heading">Information</div>
+				  	<div id="information" class="panel-body">
+				  	</div>
+				</div>
+				<!-- previous button place -->
+		  	</div>
+
+		  	<div class="col-sm-12 col-md-6 col-lg-4 scrollable-col">
+		  		<!-- accodion with selectable list -->
+			  	<div class="panel-group" id="accordion">
+			  		<!-- age group -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#age_group_list">1. Age Group</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="age_group_list" class="panel-collapse collapse">
+				        	<div class="list-group">
+				          		{% for item in age %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" class="selectOne" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				        	</div>
+				        	<!-- <div class="panel-footer">..</div> -->
+				      	</div>
+				    </div>
+
+				    <!-- general observation -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#general_observation_list">2. General Observation</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="general_observation_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				          		{% for item in general%}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				        	</ul>
+				      	</div>
+				    </div>
+
+				   	<!-- Skin Changes -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#skin_changes_list">3. Skin Changes</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="skin_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				          		{% for item in skin %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+
+				    <!-- Respiration or Breathing change  -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#respiration_changes_list">4. Respiration or Breathing Changes</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="respiration_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				          		{% for item in breathing %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+
+				    <!-- Digestive changes   -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#digestive_changes_list">5. Digestive Problems</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="digestive_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				        		{% for item in digestive %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+
+				    <!-- Behavioural changes   -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#behavioural_changes_list">6. Behavioural Changes</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="behavioural_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				        		{% for item in behavioural %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+
+				    <!-- Posture changes   -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#posture_changes_list">7. Posture Changes</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="posture_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				        		{% for item in posture %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+
+				    <!-- Structure changes   -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#structure_changes_list">8. Structural Changes</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="structure_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				        		{% for item in structure %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+
+				    <!-- discharge   -->
+				    <div class="panel panel-primary">
+				      	<div class="panel-heading">
+				       		<h4 class="panel-title">
+				          		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#discharge_changes_list">9. Discharge Type</a>
+				        	</h4>
+				      	</div>
+				     
+						<div id="discharge_changes_list" class="panel-collapse collapse">
+				        	<ul class="list-group">
+				        		{% for item in discharge %}
+				          		<li class="list-group-item">
+				          			<label class="item">{{item.1}}<input type="checkbox" name="checks" value={{item.0}} class="chk"><span class="checkmark"></span></label>
+				          			<p class="hidden">{{item.2}}</p>
+				          		</li>
+				          		{% endfor %}
+				          		
+				        	</ul>
+				      	</div>
+				    </div>
+			  	</div>
+			  	<!-- end accodion with selectable list -->
+		  		<button type="submit" class="btn btn-success">Submit</button>
+		  	</div>
+		  	
+		</div>
+
+	</form>
+		
+{% endblock content %}

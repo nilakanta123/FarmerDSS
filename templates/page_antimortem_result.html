@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST" >
+{% csrf_token %}
+	<div class="row">
+			
+		  	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 pull-right">
+		  		<!-- right side panel -->
+		  		<div class="panel panel-primary">
+				  	<div class="panel-heading">Result</div>
+				  	<div class="panel-body">
+				  		<p>The following are the findings according to your given informations.</p>
+				  		<table cellpadding="10" width="100%">
+				  			<tr>
+							    <th width="40%">Diseases</th>
+							    <th width="20%">Score</th> 
+							    <th width="30%"></th>
+							</tr>
+							<tr>
+						  		<td>{{disease1}}</td>
+						  		<td>
+						  			{% for i in range1 %}
+						  				{% ifequal i 1 %}
+						  					<span class="fa fa-star checked"></span>
+						  				{% else %}
+						  					<span class="fa fa-star"></span>
+						  				{% endifequal %}
+						  			{% endfor %}
+						  		</td>
+						  		<td><span class="badge">{{score1}}</span></td>
+						  	</tr>
+						  	<tr>
+						  		<td>{{disease2}}</td>
+						  		<td>
+						  			{% for i in range2 %}
+						  				{% ifequal i 1 %}
+						  					<span class="fa fa-star checked"></span>
+						  				{% else %}
+						  					<span class="fa fa-star"></span>
+						  				{% endifequal %}
+						  			{% endfor %}
+						  		</td>
+						  		<td><span class="badge">{{score2}}</span></td>
+						  	</tr>
+						  	<tr>
+						  		<td>{{disease3}}</td>
+						  		<td>
+						  			{% for i in range3 %}
+						  				{% ifequal i 1 %}
+						  					<span class="fa fa-star checked"></span>
+						  				{% else %}
+						  					<span class="fa fa-star"></span>
+						  				{% endifequal %}
+						  			{% endfor %}
+						  		</td>
+						  		<td><span class="badge">{{score3}}</span></td>
+						  	</tr>
+						  	<tr class="alert alert-info">
+							  		<td>Predicted Disease : </td>
+							  		<td colspan="2" ><strong>{{disease1}}</strong></td>
+						  	</tr>
+
+						  	<tr class="alert alert-info">
+							  		<td>Pig to Pork Conversion : </td>
+
+							  		<td>
+							  			{% if decision == 'Accept' %}
+							  				<strong style="color:green">{{decision}}</strong>
+							  			{% elif decision == 'Reject' %}
+							  				<strong style="color:red">{{decision}}</strong>
+							  			{% elif decision == 'Suspect' %}
+							  				<strong style="color:orange">{{decision}}</strong>
+							  			{% endif %}
+							  		</strong></td>
+							  		
+
+							  		<td>{% if decision == 'Accept' %}
+							  				<span class="glyphicon glyphicon-ok" style="color:green"></span>
+							  			{% elif decision == 'Reject' %}
+							  				<span class="glyphicon glyphicon-remove" style="color:red"></span>
+							  			{% elif decision == 'Suspect' %}
+							  				<span class="glyphicon glyphicon-question-sign" style="color:orange"></span>
+							  			{% endif %}
+
+							  		</td>
+						  	</tr>
+						</table>
+
+				  	</div>
+				</div>
+
+				<div class="panel panel-primary">
+				  	<div class="panel-heading">Feedback</div>
+				  	<div class="panel-body">
+				  		<p>Please take a few minutes to give us feedback by selecting the following choice. We are collecting this information in order to improve our Disease Support System Engine and to improve the level of satisfaction with the quality of our service. We thank you for your participation.</p>
+				  		<table width="100%">
+						  <tr>
+						    <th width="40%"></th>
+						    <th width="60%"></th> 
+						   
+						  </tr>
+						  <tr>
+						    <td>Pig Farm Address</td>
+						    <td> <input type="text" name="address"></td>	 
+						  </tr>
+						  <tr>
+						    <td>Farm Telephone No.</td>
+						    <td> <input type="text" name="phone"></td>
+						  </tr>
+						  <tr>
+						    <td>Email Address</td>
+						    <td> <input type="text" name="email"></td>
+						  </tr>
+						  <tr>
+						    <td>Animal No.</td>
+						    <td> <input type="text" name="animal_no"></td>
+						  </tr>
+						  <tr>
+						    <td>Date of sikness</td>
+						    <td> <input type="date" name="date"></td>
+						  </tr>
+						  <tr>
+						    <td>Disease Symptoms</td>
+						    <td> <input type="text" name="symptoms" value='{{symptomlist}}' disabled></td>
+						  </tr>
+						  <tr>
+						    <td>DSS Score of diseases</td>
+						    <td> <input type="text" name="score" value='{{score1}}' disabled></td>
+						  </tr>
+						  <tr>
+						    <td>Disease diagnosed by DSS</td>
+						    <td> <input type="text" name="disease_by_dss" value='{{disease1}}' disabled></td>
+						  </tr>
+						  <tr>
+						    <td>Disease diagnosed by Veterinarian</td>
+						    <td> <input type="text" name="disease_by_vet"></td>
+						  </tr>
+						  
+						</table>
+						<table>
+						  <tr>
+						    <th width="40%"></th>
+						    <th width="12%"">Very Good</th> 
+						    <th width="12%">Good</th>
+						    <th width="12%">Fair</th>
+						    <th width="12%">Poor</th>
+						  </tr>
+						  <tr>
+						    <td width="40%">How satisfied are you with our Pig Disease Prediction System?</td>
+						    <td> <input type='radio' name="satisfaction" value="very good" checked></td>
+						    <td> <input type="radio" name="satisfaction" value="good"></td>
+						    <td> <input type="radio" name="satisfaction" value="fair"></td>
+						    <td> <input type="radio" name="satisfaction" value="poor"></td>
+						  </tr>
+						</table>
+						<p>Feel free to add any other comments or suggestions:</p>
+						<textarea cols="2" rows="5" name="comment"></textarea>
+						<p><small>* The information given within the Feedback Form will be used for service improvement only and are strictly confidential.</small></p>
+						<button type="submit" class="btn btn-primary">Submit the Feedback</button> 
+				  	</div>
+				</div>
+			</div>
+
+		  	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+				<div class="list-group">
+				  <a class="list-group-item active"><h4>Summary</h4></a>
+				  <a href="#" class="list-group-item active">Result</a>
+				  <a href="#" class="list-group-item active">More Details</a>
+				  <a href="#" class="list-group-item active">Extra Informations</a>
+				  <a href="#" class="list-group-item active">Contact</a>
+				</div>
+		  	</div>
+	</div>
+</form>
+{% endblock content %}
